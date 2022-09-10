@@ -6,8 +6,7 @@ using UIKit;
 
 namespace LottieSamples.iOS
 {
-
-    partial class AnimationTransitionViewController : UIViewController, IUIViewControllerTransitioningDelegate
+    internal partial class AnimationTransitionViewController : UIViewController, IUIViewControllerTransitioningDelegate
     {
         private UIButton button1;
         private UIButton closeButton;

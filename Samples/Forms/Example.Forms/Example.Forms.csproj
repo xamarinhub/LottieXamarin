@@ -1,19 +1,45 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="**\*.xaml.cs" DependentUpon="%(Filename)" />
+    <EmbeddedResource Include="LottieLogo1.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.815419" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Lottie.Forms\Lottie.Forms.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\AssetPage.xaml.cs">
+      <DependentUpon>AssetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\ControlsPage.xaml.cs">
+      <DependentUpon>AsseControlsPagetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\EmbeddedPage.xaml.cs">
+      <DependentUpon>EmbeddedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\StreamPage.xaml.cs">
+      <DependentUpon>StreamPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\UrlPage.xaml.cs">
+      <DependentUpon>UrlPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

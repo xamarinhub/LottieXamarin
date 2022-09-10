@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Airbnb.Lottie;
 using CoreGraphics;
 using Foundation;
@@ -15,7 +14,7 @@ namespace LottieSamples.iOS
 
 
         [Export("initWithFrame:")]
-        public LOTCharacterCell(CGRect frame) : base (frame)
+        public LOTCharacterCell(CGRect frame) : base(frame)
         {
         }
 
@@ -86,7 +85,7 @@ namespace LottieSamples.iOS
 
 
             this.character = sanatizedChar;
-            this.animationView = LOTAnimationView.AnimationNamed("TypeFace/"+sanatizedChar);
+            this.animationView = LOTAnimationView.AnimationNamed("TypeFace/" + sanatizedChar);
             this.animationView.ContentMode = UIViewContentMode.ScaleAspectFit;
             this.ContentView.AddSubview(this.animationView);
             CGRect c = this.ContentView.Bounds;
@@ -103,7 +102,7 @@ namespace LottieSamples.iOS
                 this.animationView.Play();
             }
             else if (this.animationView.AnimationProgress != 1)
-            { 
+            {
                 NSOperationQueue.MainQueue.AddOperation(() => this.animationView.AnimationProgress = 1);
             }
         }

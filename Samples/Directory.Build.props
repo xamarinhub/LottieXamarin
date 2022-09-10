@@ -1,12 +1,12 @@
 <Project>
   <PropertyGroup>
-    <Copyright>Copyright (c) Martijn van Dijk</Copyright>
-    <Authors>Martijn van Dijk</Authors>
-    <Owners>martijn00</Owners>
+    <Copyright>Copyright (c) Baseflow</Copyright>
+    <Authors>Martijn van Dijk, Baseflow</Authors>
+    <Owners>martijn00, Baseflow</Owners>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <NeutralLanguage>en</NeutralLanguage>
     
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <NoWarn>$(NoWarn);1591;1701;1702;1705;VSX1000</NoWarn>
 
     <Platform>AnyCPU</Platform>

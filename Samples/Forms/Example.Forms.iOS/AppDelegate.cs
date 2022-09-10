@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿
 using Foundation;
-using Lottie.Forms.iOS.Renderers;
+using Lottie.Forms.Platforms.Ios;
 using UIKit;
 
 namespace Example.Forms.iOS
@@ -24,7 +21,6 @@ namespace Example.Forms.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            AnimationViewRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

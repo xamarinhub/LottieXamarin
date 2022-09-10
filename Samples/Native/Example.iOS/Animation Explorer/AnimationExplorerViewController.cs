@@ -26,7 +26,6 @@ namespace LottieSamples.iOS
         private UISlider slider;
         private LOTAnimationView laAnimation;
 
-
         public AnimationExplorerViewController() : base()
         {
         }
@@ -40,32 +39,31 @@ namespace LottieSamples.iOS
             this.laAnimation = new LOTAnimationView();
             this.toolbar = new UIToolbar(CGRect.Empty);
 
-
             UIBarButtonItem open = new UIBarButtonItem(UIBarButtonSystemItem.Bookmarks, OpenEventHandler);
-            UIBarButtonItem flx1 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null);
+            UIBarButtonItem flx1 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, handler: null);
 
             UIBarButtonItem openWeb = new UIBarButtonItem(UIBarButtonSystemItem.Action, RemoteJsonEventHandler);
-            UIBarButtonItem flx2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null);
+            UIBarButtonItem flx2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, handler: null);
 
             UIBarButtonItem play = new UIBarButtonItem(UIBarButtonSystemItem.Play, PlayEventHandler);
-            UIBarButtonItem flx3 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null);
+            UIBarButtonItem flx3 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, handler: null);
 
             UIBarButtonItem loop = new UIBarButtonItem(UIBarButtonSystemItem.Refresh, LoopEventHandler);
-            UIBarButtonItem flx4 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null);
+            UIBarButtonItem flx4 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, handler: null);
 
             UIBarButtonItem zoom = new UIBarButtonItem(UIBarButtonSystemItem.Add, ZoomEventHandler);
-            UIBarButtonItem flx5 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null);
+            UIBarButtonItem flx5 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, handler: null);
 
             UIBarButtonItem bgcolor = new UIBarButtonItem(UIBarButtonSystemItem.Compose, ChangeBackgroundColorEventHandler);
-            UIBarButtonItem flx6 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, null);
+            UIBarButtonItem flx6 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace, handler: null);
 
             UIBarButtonItem close = new UIBarButtonItem(UIBarButtonSystemItem.Stop, CloseEventHandler);
 
-            this.toolbar.Items =  new UIBarButtonItem[]{open, flx1, openWeb, flx2, loop, flx3, play, flx4, zoom, flx5, bgcolor, flx6, close };
+            this.toolbar.Items = new UIBarButtonItem[] { open, flx1, openWeb, flx2, loop, flx3, play, flx4, zoom, flx5, bgcolor, flx6, close };
             this.View.AddSubview(toolbar);
 
             this.slider = new UISlider(CGRect.Empty);
-            this.slider.ValueChanged += (sender, e) => this.laAnimation.AnimationProgress = this.slider.Value;;
+            this.slider.ValueChanged += (sender, e) => this.laAnimation.AnimationProgress = this.slider.Value; ;
             this.slider.MinValue = 0f;
             this.slider.MaxValue = 1f;
             this.View.AddSubview(this.slider);
@@ -114,7 +112,7 @@ namespace LottieSamples.iOS
                 case UIViewContentMode.ScaleAspectFill:
                     this.laAnimation.ContentMode = UIViewContentMode.ScaleToFill;
                     await this.ShowMessageAsync("Scale Fill");
-                    break;                
+                    break;
                 case UIViewContentMode.ScaleToFill:
                     this.laAnimation.ContentMode = UIViewContentMode.ScaleAspectFit;
                     await this.ShowMessageAsync("Aspect Fit");
@@ -126,7 +124,7 @@ namespace LottieSamples.iOS
 
         private void ChangeBackgroundColorEventHandler(object sender, EventArgs e)
         {
-            var currentBg = this.backgroundColor;
+            ViewBackgroundColorEnum currentBg = this.backgroundColor;
             currentBg += 1;
             if (currentBg == ViewBackgroundColorEnum.None)
             {
@@ -153,14 +151,14 @@ namespace LottieSamples.iOS
 
         private async Task ShowQRCodeScannerAsync()
         {
-            var options = new ZXing.Mobile.MobileBarcodeScanningOptions();
-            options.PossibleFormats = new List<ZXing.BarcodeFormat>() {ZXing.BarcodeFormat.QR_CODE};
+            MobileBarcodeScanningOptions options = new ZXing.Mobile.MobileBarcodeScanningOptions();
+            options.PossibleFormats = new List<ZXing.BarcodeFormat>() { ZXing.BarcodeFormat.QR_CODE };
 
-            var scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
+            MobileBarcodeScanner scanner = new ZXing.Mobile.MobileBarcodeScanner(this);
             scanner.TopText = "Scan QR Code from lottiefiles.com";
             scanner.AutoFocus();
 
-            var result = await scanner.Scan(options,true);
+            ZXing.Result result = await scanner.Scan(options, true);
             if (result != null)
                 LoadAnimationFromUrl(result.Text);
 
@@ -171,7 +169,7 @@ namespace LottieSamples.iOS
             JSONExplorerViewController vc = new JSONExplorerViewController();
             vc.CompletionBlock = (string fileName) =>
             {
-                if (!String.IsNullOrEmpty(fileName))
+                if (!string.IsNullOrEmpty(fileName))
                 {
                     this.LoadAnimationNamed(fileName);
                 }
@@ -221,7 +219,7 @@ namespace LottieSamples.iOS
             button.TintColor = highlighted ? UIColor.Red : new UIColor(red: 50f / 255f,
                                                                        green: 207f / 255f,
                                                                        blue: 193f / 255f,
-                                                                       alpha:1f);
+                                                                       alpha: 1f);
         }
 
         private void SetBackgroundColor(ViewBackgroundColorEnum color)
@@ -277,12 +275,13 @@ namespace LottieSamples.iOS
                 CADisplayLink displayLink = CADisplayLink.Create(UpdateProgressSlider);
                 displayLink.AddToRunLoop(NSRunLoop.Current, NSRunLoopMode.Common);
                 this.ResetButton(button, highlighted: true);
-                this.laAnimation.PlayWithCompletion((arg0) => {
+                this.laAnimation.PlayWithCompletion((arg0) =>
+                {
                     displayLink.Invalidate();
                     this.ResetButton(button, highlighted: false);
                 });
             }
-                
+
         }
 
         private async Task ShowMessageAsync(string message)
@@ -301,14 +300,14 @@ namespace LottieSamples.iOS
             this.View.AddSubview(messageLabel);
 
             await UIView.AnimateAsync(0.3f, () => messageLabel.Alpha = 1f);
-            UIView.Animate(0.3f, 1f, UIViewAnimationOptions.CurveEaseInOut, 
-                           ()=> messageLabel.Alpha=0f, 
+            UIView.Animate(0.3f, 1f, UIViewAnimationOptions.CurveEaseInOut,
+                           () => messageLabel.Alpha = 0f,
                            () => messageLabel.RemoveFromSuperview());
         }
 
         private void UpdateProgressSlider()
         {
-			this.slider.Value = (float)this.laAnimation.AnimationProgress;
+            this.slider.Value = (float)this.laAnimation.AnimationProgress;
         }
     }
 }

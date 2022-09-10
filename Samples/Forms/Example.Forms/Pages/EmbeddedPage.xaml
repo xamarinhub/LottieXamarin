@@ -4,15 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms" 
     xmlns:local="clr-namespace:Example.Forms" 
-    x:Class="Example.Forms.MainPage">
+    x:Class="Example.Forms.EmbeddedPage">
     <ContentPage.BindingContext>
-        <local:MainPageViewModel />
+        <local:EmbeddedViewModel />
     </ContentPage.BindingContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackLayout
@@ -20,44 +20,41 @@
             Orientation="Horizontal"
             HorizontalOptions="FillAndExpand"
             Margin="5, 0">
-            
+
             <Button 
                 HorizontalOptions="FillAndExpand"
                 Text="Play" 
-                Command="{Binding StartPlayingCommand}"/>
+                Command="{Binding PlayCommand}"
+                CommandParameter="{x:Reference animationView}" />
 
             <Button 
-                x:Name="playSegmentsButton"
                 HorizontalOptions="FillAndExpand"
-                Text="Segment" />
+                Text="Pause" 
+                Command="{Binding PauseCommand}"
+                CommandParameter="{x:Reference animationView}" />
 
             <Button 
-                x:Name="playFramesButton"
                 HorizontalOptions="FillAndExpand"
-                Text="Frames" />
-            
+                Text="Cancel" 
+                Command="{Binding CancelCommand}"
+                CommandParameter="{x:Reference animationView}" />
+
             <Button 
                 HorizontalOptions="FillAndExpand"
-                Text="Pause"
-                Command="{Binding StopPlayingCommand}" />
+                Text="Resume" 
+                Command="{Binding ResumeCommand}"
+                CommandParameter="{x:Reference animationView}" />
+
+
         </StackLayout>
 
         <forms:AnimationView 
             x:Name="animationView" 
-            Grid.Row="1"
-            Animation="LottieLogo1.json" 
-            Loop="false" 
-            IsPlaying="{Binding IsPlaying}"
-            OnFinish="Handle_OnFinish"
-            PlaybackStartedCommand="{Binding PlayingCommand}"
-            PlaybackFinishedCommand="{Binding FinishedCommand}" 
-            ClickedCommand="{Binding ClickedCommand}"
+            Grid.Row="2" 
+            BackgroundColor="Red"
+            Animation="resource://LottieLogo1.json?assembly=Example.Forms"
+            AnimationSource="EmbeddedResource"
             VerticalOptions="FillAndExpand" 
             HorizontalOptions="FillAndExpand" />
-
-        <Slider 
-            Grid.Row="2"
-            Margin="5, 0"
-            ValueChanged="Slider_OnValueChanged" />
     </Grid>
 </ContentPage>

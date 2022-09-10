@@ -1,7 +1,6 @@
 ﻿using System;
-using Foundation;
-using UIKit;
 using Airbnb.Lottie;
+using UIKit;
 
 namespace Example.tvOS
 {
@@ -34,7 +33,7 @@ namespace Example.tvOS
         {
             base.ViewDidDisappear(animated);
             this.lottieLogo.Pause();
-        }    
+        }
     }
 }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using Xamarin.Forms;
 
 namespace Example.Forms
@@ -13,7 +9,7 @@ namespace Example.Forms
         {
             InitializeComponent();
 
-            MainPage = new Example.Forms.MainPage();
+            MainPage = new NavigationPage(new Example.Forms.MainPage());
         }
 
         protected override void OnStart()
